@@ -23,6 +23,11 @@ enum { LOG_TRACE, LOG_DEBUG, LOG_INFO, LOG_WARN, LOG_ERROR, LOG_FATAL };
 #define log_w(...) log_log(LOG_WARN, __FILE__, __LINE__, __VA_ARGS__)
 #define log_e(...) log_log(LOG_ERROR, __FILE__, __LINE__, __VA_ARGS__)
 #define log_f(...) log_log(LOG_FATAL, __FILE__, __LINE__, __VA_ARGS__)
+#define check(A, ...)                                                          \
+  if (!(A)) {                                                                  \
+    log_e(__VA_ARGS__);                                                        \
+    goto error;                                                                \
+  }
 
 void log_set_udata(void *udata);
 void log_set_lock(log_LockFn fn);
